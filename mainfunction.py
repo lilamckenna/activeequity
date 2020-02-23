@@ -17,9 +17,14 @@ RMW = []
 CMA = [] 
 RF = [] 
 
+#This function regresses the time series data for 1 stock on 
+# time series data for 5 factors, and outputs their p values to an excel sheet. 
 for stock in security_monthly_changes:
-    
+  
+    #X variables 
     factors = np.array([SMB, HML, RMW, CMA, RF])
+    
+    #Regression
     model = sm.OLS(security_monthly_changes,factors)
     results = model.fit()
     p_values = results.summary2().tables[1]['P>|t|']
