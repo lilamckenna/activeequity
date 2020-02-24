@@ -1,0 +1,10 @@
+    """ code for sci kit learn 
+             reg = LinearRegression().fit(security_monthly_changes, factors)
+
+            SMB_score= reg.score(SMB, security_monthly_changes)
+            HML_score= reg.score(HML, security_monthly_changes)
+            RMW_score= reg.score(RMW, security_monthly_changes)
+            CMA_score= reg.score(CMA, security_monthly_changes)
+            RF_score= reg.score(RF, security_monthly_changes)
+            
+        """ 

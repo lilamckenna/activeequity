@@ -15,14 +15,14 @@ SMB = []
 HML = [] 
 RMW = [] 
 CMA = [] 
-RF = [] 
+Mkt_RF = [] 
 
 #This function regresses the time series data for 1 stock on 
 # time series data for 5 factors, and outputs their p values to an excel sheet. 
 for stock in security_monthly_changes:
   
     #X variables 
-    factors = np.array([SMB, HML, RMW, CMA, RF])
+    factors = np.array([SMB, HML, RMW, CMA, Mkt_RF])
     
     #Regression
     model = sm.OLS(security_monthly_changes,factors).fit()
@@ -37,5 +37,5 @@ for stock in security_monthly_changes:
         #parameters are row, column, item
         worksheet.write(security_monthly_changes.index(stock),p_values.index(p)+1, p)
             
-       
+     
 workbook.close()
