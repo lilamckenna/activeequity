@@ -31,9 +31,13 @@ def open_stock_excel():
         stockname.append(worksheet.cell_value(i,0))
 
     #creast allstockmonthlychanges
+    
+    start_column = 3
+    end_column = 240
 
-    start_column = int(input("Start Column (3): ")) ##set start month
-    end_column = int(input("End Columns (240): ")) ##set end month 
+
+    ##start_column = int(input("Start Column (3): ")) ##set start month
+    ##end_column = int(input("End Columns (240): ")) ##set end month 
     
     for i in range (1,worksheet.nrows):
         monthlychanges = []
@@ -51,8 +55,10 @@ def open_factor_excel():
     workbook = xlrd.open_workbook(ExcelFileName)
     worksheet = workbook.sheet_by_name("Sheet1") # We need to read the data         
     
-    start_row = int(input("Start Row (442): ")) ##set start month
-    end_row = int(input("End Row (682: ")) ##set end month 
+    start_row = 442
+    ##start_row = int(input("Start Row (442): ")) ##set start month
+    end_row = 682
+   ## end_row = int(input("End Row (682: ")) ##set end month 
     
     
   
