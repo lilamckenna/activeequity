@@ -25,7 +25,7 @@ for stock in security_monthly_changes:
     factors = np.array([SMB, HML, RMW, CMA, RF])
     
     #Regression
-    model = sm.OLS(security_monthly_changes,factors)
+    model = sm.OLS(security_monthly_changes,factors).fit()
     results = model.fit()
     p_values = results.summary2().tables[1]['P>|t|']
 
@@ -34,6 +34,7 @@ for stock in security_monthly_changes:
     
     #P values for regression of stock on each factor in next 5 columns
     for p in p_values:
+        #parameters are row, column, item
         worksheet.write(security_monthly_changes.index(stock),p_values.index(p)+1, p)
             
        
