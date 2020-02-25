@@ -1,13 +1,13 @@
 from sklearn import datasets
 import numpy as np
-import xlsxwriter
+import xlsxwriter 
 import statsmodels.api as sm
-import xlrd
+import xlrd as xlrd
 import pandas as pd
 import numpy as np 
 
 """
-@author: jalenwang and lilamckenna
+@authors: jalenwang and lilamckenna
 """
 
 stockname = []
@@ -41,8 +41,6 @@ def open_stock_excel():
             monthlychanges.append(change)
         security_monthly_changes.append(monthlychanges)
     
-    print (security_monthly_changes)
-    print (len(security_monthly_changes))
     
 def open_factor_excel():
     ExcelFileName= 'factor.xlsx'
@@ -63,45 +61,50 @@ def open_factor_excel():
         CMA.append(worksheet.cell_value(i,5))
     
 def regressions():
-    # print (len(factors))
-    # print (len(security_monthly_changes))
-    # print ("that was the monthly changes")
-    # print (len(stockname))
-    # print (len(SMB))
-    # print (len((RMW))
               
     #setting up results Excel 
     workbook = xlsxwriter.Workbook('cs89_results_export.xlsx')
     worksheet = workbook.add_worksheet()
-    #security_monthly_changes=list(security_monthly_changes)
 
     #This function regresses the time series data for 1 stock on 
     # time series data for 5 factors, and outputs their p values to an excel sheet. 
     for stock in security_monthly_changes:
-    
+       
         #X variables 
         factors = [ SMB, HML, RMW, CMA, Mkt_RF ]
-        factors = sm.add_constant(factors)
-
-        #Regression
-            # model = sm.OLS(security_monthly_changes,factors)
-
-        model2= sm.OLS( endog=security_monthly_changes, exog=factors)
-        #formula='security_monthly_changes ~ SMB + HML + RMW + CMA + Mkt_RF',
-        results = model2.fit()
-        p_values = results.summary2().tables[1]['P>|t|']
-
-        #Stock name in first columm
-        worksheet.write(stockname.index(stock), 0, stock)
         
-        #P values for regression of stock on each factor in next 5 columns
-        for p in p_values:
+        #Regression for each factor Y= Stock X= Factor
+        model0= sm.OLS(stock, factors[0])
+        model1= sm.OLS(stock, factors[1])
+        model2= sm.OLS(stock, factors[2])
+        model3= sm.OLS(stock, factors[3])
+        model4= sm.OLS(stock, factors[4])
+        
+        #Fit regression for each factor
+        results0 = model0.fit()
+        results1 = model1.fit()
+        results2 = model2.fit()
+        results3 = model3.fit()
+        results4 = model4.fit()
+        
+        #Get p-values for each factor, make into a list of all 
+        p_values0 = results0.pvalues
+        p_values1 = results1.pvalues
+        p_values2 = results2.pvalues
+        p_values3 = results3.pvalues
+        p_values4 = results4.pvalues
+        p_values_total= [p_values0[0],p_values1[0], p_values2[0], p_values3[0], p_values4[0]]
+        
+        #write name of stock in excel 
+        worksheet.write(security_monthly_changes.index(stock), 0, stockname[security_monthly_changes.index(stock)])
+
+        #write p values for stock in excel 
+        for p in p_values_total:
             #parameters are row, column, item
-            worksheet.write(security_monthly_changes.index(stock),p_values.index(p)+1, p)
+            worksheet.write(security_monthly_changes.index(stock),p_values_total.index(p)+1, p)      
             
     workbook.close()
-            
-            
+     
 def main ():
     open_stock_excel()
     open_factor_excel()
