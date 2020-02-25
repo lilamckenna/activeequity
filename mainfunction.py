@@ -60,8 +60,7 @@ def open_factor_excel():
         RMW.append(worksheet.cell_value(i,4))
         CMA.append(worksheet.cell_value(i,5))
     
-def regressions():
-              
+def regressions():          
     #setting up results Excel 
     workbook = xlsxwriter.Workbook('cs89_results_export.xlsx')
     worksheet = workbook.add_worksheet()
@@ -98,9 +97,9 @@ def regressions():
         #write name of stock in excel 
         worksheet.write(security_monthly_changes.index(stock), 0, stockname[security_monthly_changes.index(stock)])
 
-        #write p values for stock in excel 
+        #write p values in excel 
         for p in p_values_total:
-            #parameters are row, column, item
+            #parameters of write() are row, column, item
             worksheet.write(security_monthly_changes.index(stock),p_values_total.index(p)+1, p)      
             
     workbook.close()
