@@ -18,6 +18,7 @@ SMB = []
 HML = []
 RMW = []
 CMA = []
+RF = []
 
 
 
@@ -41,10 +42,12 @@ def open_stock_excel():
     
     for i in range (1,worksheet.nrows):
         monthlychanges = []
+        k = 0 #tracker for RF
         for j in range (start_column, end_column-1):
 
-            change = (worksheet.cell_value(i,j+1))/(worksheet.cell_value(i,j))-1
+            change = ((worksheet.cell_value(i,j+1))/(worksheet.cell_value(i,j))-1) - RF[k]
             monthlychanges.append(change)
+            k = k +  1
         allstockmonthlychanges.append(monthlychanges)
     
     
@@ -68,6 +71,7 @@ def open_factor_excel():
         HML.append(worksheet.cell_value(i,3))
         RMW.append(worksheet.cell_value(i,4))
         CMA.append(worksheet.cell_value(i,5))
+        RF.append(worksheet.cell_value(i,6))
     
     print (Mkt_RF)
     print (SMB)
@@ -77,8 +81,9 @@ def open_factor_excel():
     
 
 def main ():
-    open_stock_excel()
+    
     open_factor_excel()
+    open_stock_excel()
     
     
 main()
