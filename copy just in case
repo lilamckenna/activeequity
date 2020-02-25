@@ -8,7 +8,7 @@ import numpy as np
 
 """"
 @authors: jalenwang and lilamckenna
-"""
+""""
 
 stockname = []
 security_monthly_changes = []
@@ -17,8 +17,6 @@ SMB = []
 HML = []
 RMW = []
 CMA = []
-RF = []
-
 
 def open_stock_excel():
     ExcelFileName= 'GoodData2.xlsx'
@@ -37,11 +35,9 @@ def open_stock_excel():
     ##end_column = int(input("End Columns (240): ")) ##set end month 
     for i in range (1,worksheet.nrows):
         monthlychanges = []
-        k = 0 #tracker for RF
         for j in range (start_column, end_column):
-            change = ((worksheet.cell_value(i,j+1))/(worksheet.cell_value(i,j))-1) - RF[k]
+            change = (worksheet.cell_value(i,j+1))/(worksheet.cell_value(i,j))-1
             monthlychanges.append(change)
-            k = k +  1
         security_monthly_changes.append(monthlychanges)
     
     
@@ -62,7 +58,7 @@ def open_factor_excel():
         HML.append(worksheet.cell_value(i,3))
         RMW.append(worksheet.cell_value(i,4))
         CMA.append(worksheet.cell_value(i,5))
-        RF.append(worksheet.cell_value(i,6))
+    
 def regressions():          
     #setting up results Excel 
     workbook = xlsxwriter.Workbook('cs89_results_export.xlsx')
@@ -108,9 +104,8 @@ def regressions():
     workbook.close()
      
 def main ():
-   
-    open_factor_excel()
     open_stock_excel()
+    open_factor_excel()
     regressions()
     
 main() 
