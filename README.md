@@ -1,5 +1,5 @@
 # activeequity
-**Active Edge Equity Investing. The next big thing.**
+**Active Edge Equity Investing. The next big thing. :chart_with_upwards_trend:	**
 
 *Authors: Lila McKenna and Jalen Wang*
 
