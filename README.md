@@ -5,8 +5,16 @@
 
 This project creates a network of the s&p 500 stocks, mapping relationships between stocks via a set of market tilts / factors.
 
+
+Note: A lot of work for cleaning the data and pulling was run on Excel and Bloomberg terminal. 
+
+
+
+
 **Files in this repo:**
-main function.py: Reads the bloomberg historical stock data & fama french data and runs the regression. It outputs the cs89_results_export file. 
+
+
+mainfunction.py: Reads the bloomberg historical stock data & fama french data and runs the regression. It outputs the cs89_results_export file. 
 
 cs89_reslts_export.xlsx:
 This displays the statistical significance (p-values) of each of the five regressions for every stock in the S&p 500. 
